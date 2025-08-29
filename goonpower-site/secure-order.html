@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Order | GOON Power</title>
+  <style>
+    :root{ --bg:#0B0B0B; --fg:#F5F5F5; --muted:#DDDDDD; --olive:#4B5320; --accent:#B22222; --border:#2d2d2d; --card:#1c1c1c; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Arial Black',sans-serif;background:var(--bg);color:var(--fg)}
+    .compact-header{background:#0B0B0B;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--olive)}
+    .logo-nav{display:flex;align-items:center;gap:2rem;width:100%;justify-content:space-between}
+    .logo-nav img{height:60px}
+    nav{display:flex;gap:1.25rem;flex-wrap:wrap}
+    nav a{color:#F5F5F5;font-weight:bold;text-decoration:none;font-size:1rem;transition:color .3s}
+    nav a:hover{color:var(--accent)}
+
+    .wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+    h1{margin:0 0 .25rem;color:var(--accent)}
+    .sub{color:var(--muted);margin:0 0 1.25rem}
+
+    .grid{display:grid;grid-template-columns:1.6fr 1fr;gap:1rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem}
+    .section-title{font-size:1.05rem;margin:0 0 .75rem}
+
+    .pair{display:grid;grid-template-columns:160px 1fr;gap:.5rem .75rem;align-items:start}
+    .pair div{padding:.25rem 0}
+
+    .list{list-style:none;margin:0;padding:0}
+    .list li{display:grid;grid-template-columns:1fr auto;gap:.5rem;padding:.6rem 0;border-bottom:1px dashed #333}
+    .muted{color:#aaa}
+
+    .totals{margin-top:.5rem;border-top:1px solid #333;padding-top:.75rem}
+    .totals div{display:flex;justify-content:space-between;padding:.25rem 0}
+    .grand{color:var(--accent);font-size:1.15rem}
+
+    .actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.85rem 1.25rem;border-radius:10px;border:1px solid var(--border);background:#141414;color:#fff;font-weight:900;text-decoration:none;cursor:pointer}
+    .btn.primary{background:var(--accent);border-color:transparent}
+    .btn.primary:hover{filter:brightness(.95)}
+
+    .empty{border:1px dashed #444;border-radius:12px;padding:1rem;text-align:center}
+
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="compact-header">
+    <div class="logo-nav">
+      <img src="images/gpssbannercompact.png" alt="GOON Power Logo">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="supps.html">Supplements</a>
+        <a href="apparel.html">Apparel</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <h1>Secure Order</h1>
+    <div class="sub">Thank you for your purchase. Your order information is below.</div>
+
+    <div id="empty" class="empty" style="display:none">
+      <p>No recent order found.</p>
+      <p class="muted">If you just paid, your browser might have blocked local data. You can still complete checkout.</p>
+      <div class="actions" style="justify-content:center">
+        <a class="btn primary" href="checkout.html">Return to Checkout</a>
+        <a class="btn" href="index.html">Back to Store</a>
+      </div>
+    </div>
+
+    <div id="content" style="display:none">
+      <div class="grid">
+        <!-- Left: Shipping + Payment -->
+        <section class="card">
+          <h2 class="section-title">Order Details</h2>
+          <div class="pair">
+            <div class="muted">Order ID</div><div id="order-id">—</div>
+            <div class="muted">Placed</div><div id="placed">—</div>
+            <div class="muted">Payment</div><div id="payment">—</div>
+            <div class="muted">Shipping Method</div><div id="ship-method">—</div>
+            <div class="muted" id="promo-label" style="display:none">Promo Code</div><div id="promo" style="display:none">—</div>
+          </div>
+
+          <h2 class="section-title" style="margin-top:1rem">Shipping To</h2>
+          <div class="pair">
+            <div class="muted">Name</div><div id="ship-name">—</div>
+            <div class="muted">Email</div><div id="ship-email">—</div>
+            <div class="muted">Phone</div><div id="ship-phone">—</div>
+            <div class="muted">Address</div><div id="ship-address">—</div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="print">Print Receipt</button>
+            <a class="btn" href="index.html">Continue Shopping</a>
+          </div>
+        </section>
+
+        <!-- Right: Items + Totals -->
+        <aside class="card">
+          <h2 class="section-title">Items</h2>
+          <ul id="items" class="list"></ul>
+          <div class="totals">
+            <div><span>Subtotal</span><strong id="t-sub">$0.00</strong></div>
+            <div id="t-disc-row" style="display:none"><span>Discount</span><strong id="t-disc">-$0.00</strong></div>
+            <div><span>Shipping</span><strong id="t-ship">$0.00</strong></div>
+            <div><span>Tax</span><strong id="t-tax">$0.00</strong></div>
+            <div class="grand"><span>Total</span><strong id="t-grand">$0.00</strong></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fmt = n => `$${Number(n||0).toFixed(2)}`;
+    function loadOrder(){
+      try{
+        const saved = JSON.parse(localStorage.getItem('goonLastOrder'));
+        if(!saved) return null;
+        const hash = (location.hash||'').replace('#','').trim();
+        if(hash && saved.id && saved.id !== hash){ /* show saved anyway for better UX */ }
+        return saved;
+      } catch(e){ return null; }
+    }
+
+    const order = loadOrder();
+    const content = document.getElementById('content');
+    const empty = document.getElementById('empty');
+
+    if(!order){
+      empty.style.display = 'block';
+    } else {
+      content.style.display = 'block';
+      // Meta
+      document.getElementById('order-id').textContent = order.id || '—';
+      const placed = order.placedAt ? new Date(order.placedAt) : new Date();
+      document.getElementById('placed').textContent = placed.toLocaleString();
+      document.getElementById('payment').textContent = (order.paymentMethod||'card').toUpperCase();
+
+      // Shipping info
+      const c = order.customer||{};
+      document.getElementById('ship-name').textContent = `${c.first||''} ${c.last||''}`.trim();
+      document.getElementById('ship-email').textContent = c.email||'—';
+      document.getElementById('ship-phone').textContent = c.phone||'—';
+      document.getElementById('ship-address').textContent = `${c.address||''}, ${c.city||''}, ${c.state||''} ${c.zip||''}, ${c.country||''}`.replace(/^[,\s]+|[,\s]+$/g,'');
+      const sm = (order.shipping && order.shipping.method) ? order.shipping.method : 'standard';
+      const shipNameMap = { standard: 'Standard (3–5 days)', expedited: 'Expedited (2-day)', free: 'Free' };
+      document.getElementById('ship-method').textContent = shipNameMap[sm] || sm;
+
+      // Promo
+      if(order.promo){
+        document.getElementById('promo').style.display = '';
+        document.getElementById('promo-label').style.display = '';
+        document.getElementById('promo').textContent = order.promo;
+      }
+
+      // Items
+      const itemsEl = document.getElementById('items');
+      itemsEl.innerHTML='';
+      (order.items||[]).forEach(it=>{
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${it.name}${it.size?` <span class=\"muted\">(${it.size})</span>`:''}</span><strong>${fmt(it.price)}</strong>`;
+        itemsEl.appendChild(li);
+      });
+
+      // Totals (mirrored with checkout)
+      const t = order.totals||{};
+      document.getElementById('t-sub').textContent = fmt(t.subtotal);
+      if(t.discount && Number(t.discount)>0){
+        document.getElementById('t-disc-row').style.display = 'flex';
+        document.getElementById('t-disc').textContent = '-' + fmt(t.discount).slice(1);
+      }
+      document.getElementById('t-ship').textContent = fmt(t.shipping);
+      document.getElementById('t-tax').textContent = fmt(t.tax);
+      document.getElementById('t-grand').textContent = fmt(t.grand);
+    }
+
+    document.getElementById('print').addEventListener('click', ()=>window.print());
+  </script>
+</body>
+</html>

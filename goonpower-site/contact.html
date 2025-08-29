@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | GOON Power</title>
+  <style>
+    :root{ --bg:#0B0B0B; --fg:#F5F5F5; --muted:#DDDDDD; --olive:#4B5320; --accent:#B22222; --accent-dark:#8B1A1A; --card:#1e1e1e; --border:#2d2d2d; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Arial Black',sans-serif;background:var(--bg);color:var(--fg)}
+
+    /* Header */
+    .compact-header{background:#0B0B0B;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--olive)}
+    .logo-nav{display:flex;align-items:center;gap:2rem;width:100%;justify-content:space-between}
+    .logo-nav img{height:60px}
+    nav{display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center}
+    nav a{color:#F5F5F5;font-weight:bold;text-decoration:none;font-size:1rem;transition:color .3s;position:relative}
+    nav a:hover{color:var(--accent)}
+    .badge{position:absolute;top:-10px;right:-12px;background:var(--accent);color:#fff;font-size:.72rem;font-weight:900;border-radius:999px;padding:.05rem .4rem;min-width:1.2rem;text-align:center}
+
+    /* Page */
+    .wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+    h1{margin:.25rem 0 .5rem;color:var(--accent)}
+    .sub{color:var(--muted);margin-bottom:1rem}
+
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem}
+    .card h2{font-size:1.1rem;margin:.25rem 0 .75rem;color:#fff}
+
+    label{display:block;font-size:.95rem;margin:.4rem 0 .25rem}
+    input,select,textarea{width:100%;padding:.7rem;border-radius:8px;border:1px solid #3a3a3a;background:#121212;color:#fff}
+    textarea{min-height:160px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+    .error{border-color:#b74a4a !important; box-shadow:0 0 0 2px rgba(183,74,74,.25)}
+    .note{color:#bfbfbf;font-size:.85rem}
+
+    .actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.85rem 1.25rem;border-radius:10px;border:1px solid var(--border);background:#141414;color:#fff;font-weight:900;text-decoration:none;cursor:pointer}
+    .btn.primary{background:var(--accent);border-color:transparent}
+    .btn.primary:hover{background:var(--accent-dark)}
+
+    .success{border:1px solid #2f6f3a;background:#15321b;color:#c3f1c6;border-radius:12px;padding:.85rem 1rem;margin-top:.75rem;display:none}
+    .danger{border:1px solid #6f2f2f;background:#321515;color:#f1c3c3;border-radius:12px;padding:.85rem 1rem;margin-top:.75rem;display:none}
+
+    .pair{display:grid;grid-template-columns:140px 1fr;gap:.35rem .75rem}
+    .pair div{padding:.15rem 0}
+    .small{font-size:.92rem;color:#ddd}
+
+    footer{margin-top:2rem;text-align:center;font-size:.9rem;color:#aaa;padding:1.5rem 1rem}
+
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .pair{grid-template-columns:120px 1fr}
+    }
+  </style>
+
+  <!-- Organization structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "GFPS, LLC",
+    "email": "info@goonpowersupplements.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1155 Surrey Pointe Drive",
+      "addressLocality": "Warren",
+      "addressRegion": "OH",
+      "postalCode": "44484",
+      "addressCountry": "US"
+    },
+    "contactPoint": [
+      {"@type": "ContactPoint", "telephone": "+1-234-430-5755", "contactType": "customer service", "name": "Larry York", "areaServed": "US"},
+      {"@type": "ContactPoint", "telephone": "+1-724-290-6923", "contactType": "customer service", "name": "Chad Kuzar", "areaServed": "US"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="compact-header">
+    <div class="logo-nav">
+      <img src="images/gpssbannercompact.png" alt="GOON Power Logo">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="supps.html">Supplements</a>
+        <a href="apparel.html">Apparel</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart <span class="badge" id="cartBadge">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <h1>Contact GOON Power</h1>
+    <div class="sub">Got a question about your order, wholesale, or the stack that’s right for you? Drop us a line.</div>
+
+    <div class="grid">
+      <!-- Left: Form -->
+      <section class="card">
+        <h2>Send us a message</h2>
+        <div class="row">
+          <div>
+            <label for="first">First Name</label>
+            <input id="first" autocomplete="given-name" required />
+          </div>
+          <div>
+            <label for="last">Last Name</label>
+            <input id="last" autocomplete="family-name" required />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" autocomplete="email" required />
+          </div>
+          <div>
+            <label for="phone">Phone <span class="note">(optional)</span></label>
+            <input id="phone" type="tel" autocomplete="tel" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="topic">Topic</label>
+            <select id="topic">
+              <option value="general" selected>General Question</option>
+              <option value="order">Order Support</option>
+              <option value="wholesale">Wholesale Inquiry</option>
+              <option value="press">Press</option>
+            </select>
+          </div>
+          <div id="orderWrap">
+            <label for="orderId">Order ID <span class="note">(if you have one)</span></label>
+            <input id="orderId" placeholder="GP-ABC123" />
+          </div>
+        </div>
+        <label for="msg">Message</label>
+        <textarea id="msg" placeholder="How can we help?" required></textarea>
+
+        <div class="actions">
+          <button class="btn primary" id="send">Send Message</button>
+          <button class="btn" id="clear">Clear</button>
+          <a class="btn" id="mailtoBtn" href="#">Open Email App</a>
+        </div>
+        <div id="ok" class="success">Message prepared. If you clicked "Open Email App", your email client will open with everything filled in. We also saved your message locally so you have a record.</div>
+        <div id="err" class="danger">Please complete the required fields highlighted below.</div>
+      </section>
+
+      <!-- Right: Company Info -->
+      <aside class="card">
+        <h2>Reach us</h2>
+        <div class="pair small">
+          <div class="muted">Company</div><div>GFPS, LLC</div>
+          <div class="muted">Address</div><div>1155 Surrey Pointe Drive<br>Warren, OH 44484</div>
+          <div class="muted">Email</div><div><a href="mailto:info@goonpowersupplements.com" style="color:#fff;text-decoration:underline">info@goonpowersupplements.com</a></div>
+          <div class="muted">Co-President</div><div>Larry York — <a href="tel:12344305755" style="color:#fff;text-decoration:underline">234.430.5755</a></div>
+          <div class="muted">Co-President</div><div>Chad Kuzar — <a href="tel:17242906923" style="color:#fff;text-decoration:underline">724.290.6923</a></div>
+          <div class="muted">Hours</div><div>Mon–Fri 9am–5pm ET</div>
+          <div class="muted">Response</div><div>We typically reply within 1–2 business days.</div>
+        </div>
+        <div class="note" style="margin-top:.75rem">This site is currently a client-side demo. Messages are stored in your browser for your records and also prepared for email.</div>
+      </aside>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 GFPS, LLC | Veteran-Owned | Warren, OH</footer>
+
+  <script>
+    // ---- utils ----
+    const $ = (id)=>document.getElementById(id);
+
+    // Cart badge
+    function updateCartBadge(){
+      const cart = JSON.parse(localStorage.getItem('goonCart')||'[]');
+      const badge = $('cartBadge'); if(badge){ badge.textContent = cart.length; }
+    }
+    updateCartBadge();
+    window.addEventListener('storage', updateCartBadge);
+
+    // Prefill from last order / saved draft
+    function prefill(){
+      try{
+        const draft = JSON.parse(localStorage.getItem('goonContactDraft')||'null');
+        if(draft){ Object.keys(draft).forEach(k=>{ if($(k)) $(k).value = draft[k]; }); return; }
+        const order = JSON.parse(localStorage.getItem('goonLastOrder')||'null');
+        if(order && order.customer){
+          const c = order.customer;
+          if($('first')) $('first').value = c.first||'';
+          if($('last')) $('last').value = c.last||'';
+          if($('email')) $('email').value = c.email||'';
+          if($('phone')) $('phone').value = c.phone||'';
+          if($('orderId')) $('orderId').value = order.id||'';
+          if($('topic')) $('topic').value = 'order';
+        }
+      }catch(e){}
+    }
+
+    // Autosave
+    const fields = ['first','last','email','phone','topic','orderId','msg'];
+    function autosave(){
+      const data = {}; fields.forEach(id=> data[id] = ($(id)?.value||'').toString());
+      localStorage.setItem('goonContactDraft', JSON.stringify(data));
+    }
+    fields.forEach(id=> $(id)?.addEventListener('input', autosave));
+
+    function clearErrors(){ ['first','last','email','msg','orderId'].forEach(id=> $(id)?.classList.remove('error')); $('err').style.display='none'; }
+
+    function validate(){
+      clearErrors();
+      let ok = true;
+      function need(id, cond=true){
+        if(!cond) return; const el = $(id); if(!el) return; const v=(el.value||'').trim();
+        if(!v){ el.classList.add('error'); ok=false; }
+      }
+      need('first'); need('last'); need('email'); need('msg');
+      const topic = $('topic').value;
+      if(topic==='order'){ need('orderId'); }
+      const em = ($('email').value||'').trim();
+      if(em && !/.+@.+\..+/.test(em)){ $('email').classList.add('error'); ok=false; }
+      if(!ok){ $('err').style.display='block'; }
+      return ok;
+    }
+
+    function buildMailto(){
+      const SUPPORT_EMAIL = 'info@goonpowersupplements.com';
+      const topic = $('topic').value;
+      const subj = encodeURIComponent(`[GFPS] ${topic.toUpperCase()} — ${$('first').value} ${$('last').value}`);
+      const lines = [
+        `Name: ${$('first').value} ${$('last').value}`,
+        `Email: ${$('email').value}`,
+        `Phone: ${$('phone').value||'-'}`,
+        `Topic: ${topic}`,
+        $('orderId').value?`Order ID: ${$('orderId').value}`:null,
+        '',
+        'Message:',
+        $('msg').value,
+        '',
+        `Sent: ${new Date().toLocaleString()}`
+      ].filter(Boolean).join('\n');
+      const body = encodeURIComponent(lines);
+      return `mailto:${SUPPORT_EMAIL}?subject=${subj}&body=${body}`;
+    }
+
+    function saveSubmission(){
+      const sub = {
+        at: new Date().toISOString(),
+        first: $('first').value, last: $('last').value, email: $('email').value, phone: $('phone').value,
+        topic: $('topic').value, orderId: $('orderId').value, msg: $('msg').value
+      };
+      const list = JSON.parse(localStorage.getItem('goonContactSubmissions')||'[]');
+      list.push(sub); localStorage.setItem('goonContactSubmissions', JSON.stringify(list));
+      localStorage.setItem('goonContactDraft', JSON.stringify(sub));
+    }
+
+    // Toggle order field hint when topic changes
+    $('topic').addEventListener('change', ()=>{
+      const isOrder = $('topic').value==='order';
+      $('orderId').placeholder = isOrder? 'GP-ABC123' : '';
+    });
+
+    // Buttons
+    $('send').addEventListener('click', ()=>{
+      if(!validate()) return;
+      saveSubmission();
+      $('mailtoBtn').href = buildMailto();
+      $('ok').style.display='block';
+      // Optionally auto-open mail client: uncomment next line
+      // window.location.href = $('mailtoBtn').href;
+    });
+
+    $('clear').addEventListener('click', ()=>{
+      fields.forEach(id=>{ if($(id)) $(id).value=''; });
+      localStorage.removeItem('goonContactDraft');
+      clearErrors(); $('ok').style.display='none';
+    });
+
+    // init
+    prefill();
+  </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supplements | GOON Power</title>
+  <style>
+    :root{ --bg:#0B0B0B; --fg:#F5F5F5; --muted:#DDDDDD; --olive:#4B5320; --accent:#B22222; --accent-dark:#8B1A1A; --card:#1e1e1e; --border:#2d2d2d; }
+    *{box-sizing:border-box}
+    body{ margin:0; font-family:'Arial Black',sans-serif; background:#0B0B0B; color:#F5F5F5; }
+
+    /* Header */
+    .compact-header{background:#0B0B0B;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--olive)}
+    .logo-nav{display:flex;align-items:center;gap:2rem;width:100%;justify-content:space-between}
+    .logo-nav img{height:60px}
+    nav{display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center}
+    nav a{color:#F5F5F5;font-weight:bold;text-decoration:none;font-size:1rem;transition:color .3s;position:relative}
+    nav a:hover{color:var(--accent)}
+    .badge{position:absolute;top:-10px;right:-12px;background:var(--accent);color:#fff;font-size:.72rem;font-weight:900;border-radius:999px;padding:.05rem .4rem;min-width:1.2rem;text-align:center}
+    .badge.bounce{animation:bounce .5s}
+    @keyframes bounce{0%{transform:scale(1)}50%{transform:scale(1.25)}100%{transform:scale(1)}}
+
+    /* Launch banner */
+    .launch-banner{background:#141414;border:2px dashed #B22222;color:#F5F5F5;text-align:center;padding:.9rem 1rem;margin:0}
+    .launch-banner b{color:#B22222}
+
+    /* Page */
+    .container{padding:2rem 1rem;max-width:1100px;margin:0 auto}
+    h1{color:var(--accent);margin:1.25rem 0}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+
+    .product{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;display:flex;flex-direction:column}
+    .title{font-size:1.1rem;margin:.25rem 0 .5rem;color:#fff}
+
+    .media{display:flex;flex-direction:column;align-items:center}
+    .main-image{width:260px;max-width:100%;border:2px solid #555;border-radius:8px;margin-bottom:.6rem;cursor:zoom-in;transition:transform .2s}
+    .main-image:hover{transform:scale(1.02)}
+    .thumbs{display:flex;gap:.5rem;justify-content:center}
+    .thumb{width:68px;height:auto;border:1px solid #333;border-radius:6px;cursor:pointer;transition:filter .2s}
+    .thumb:hover{filter:brightness(1.1)}
+
+    .price{font-size:1.25rem;color:var(--accent);margin:.5rem 0}
+
+    .controls{display:grid;gap:.5rem}
+    .row{display:flex;gap:.5rem;flex-wrap:wrap}
+    select,input[type=number]{flex:1;padding:.6rem;border-radius:8px;border:1px solid #3a3a3a;background:#121212;color:#fff}
+    .qty{max-width:120px}
+
+    .add{display:flex;gap:.5rem}
+    .btn{flex:1;padding:.8rem 1rem;border:none;border-radius:10px;background:var(--accent);color:#fff;font-weight:900;cursor:pointer;text-align:center}
+    .btn:hover{background:var(--accent-dark)}
+
+    .toast{margin-top:.4rem;color:#8fd18f;font-size:.9rem;display:none}
+    .toast.show{display:block}
+
+    footer{margin-top:2rem;text-align:center;font-size:.9rem;color:#aaa;padding:1.5rem 1rem}
+
+    /* Zoom overlay */
+    #zoomOverlay{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9999}
+    #zoomOverlay img{max-width:92vw;max-height:92vh;border:2px solid #444;border-radius:10px}
+
+    /* Coming Soon placeholder box */
+    .cs-box{width:260px;height:260px;max-width:100%;border:2px dashed #555;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#111;color:#B22222;font-weight:900;letter-spacing:.08em}
+    .product.coming .thumbs{display:none}
+    .product.coming .btn{background:#444;cursor:not-allowed}
+    .product.coming .btn:hover{background:#444}
+      .btn[disabled]{background:#444;cursor:not-allowed}
+    .notify{display:inline-block;margin-top:.35rem;color:#bbb;text-decoration:underline;font-size:.9rem}
+    .notify:hover{color:#fff}
+  </style>
+</head>
+<body>
+  <header class="compact-header">
+    <div class="logo-nav">
+      <img src="images/gpssbannercompact.png" alt="GOON Power Logo">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="supps.html">Supplements</a>
+        <a href="apparel.html">Apparel</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart <span class="badge" id="cartBadge">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Launch announcement bar -->
+  <div class="launch-banner" role="status" aria-live="polite">🚀 <b>GOON Power Supplements will launch in late September 2025!</b> Please keep checking back for updates.</div>
+
+  <div class="container">
+    <h1>GOON Power Supplements</h1>
+
+    <div class="grid" id="products">
+      <!-- Pre-Workout (Raspberry Rampage) -->
+      <article class="product" data-name="GOON Power Pre-Workout - Raspberry Rampage" data-gallery="pre">
+        <div class="media">
+          <img class="main-image" data-gallery-main="pre" src="images/mainfront.png" alt="GOON Power Pre-Workout Raspberry Rampage main">
+          <div class="thumbs">
+            <img class="thumb" data-gallery-target="pre" data-src="images/mainfront.png" src="images/mainfront.png" alt="Front">
+            <img class="thumb" data-gallery-target="pre" data-src="images/descriptionside.png" src="images/descriptionside.png" alt="Description">
+            <img class="thumb" data-gallery-target="pre" data-src="images/nutrientside.png" src="images/nutrientside.png" alt="Supplement Facts">
+          </div>
+        </div>
+        <h3 class="title">Pre-Workout — Raspberry Rampage</h3>
+        <div class="price">$<span data-price></span></div>
+        <div class="controls">
+          <div class="row">
+            <select class="size" aria-label="Choose serving size" data-price-map='{"30 Serv":}'>
+              <option value="30 Serv" selected>30 Servings</option>
+            </select>
+            <input class="qty" type="number" min="1" step="1" value="1" aria-label="Quantity">
+          </div>
+          <div class="add">
+            <button class="btn" disabled>Coming Soon</button>
+            <a class="notify" href="mailto:info@goonpowersupplements.com?subject=Notify%20me%20at%20launch%3A%20Pre-Workout%20%E2%80%94%20Raspberry%20Rampage&body=Please%20notify%20me%20when%20this%20product%20launches.%20Thanks!">Notify me at launch</a>
+          </div>
+          <div class="toast" aria-live="polite"></div>
+        </div>
+      </article>
+
+      <!-- Pre-Workout (Cotton Candy Delight) — Coming Soon -->
+      <article class="product coming" data-name="GOON Power Pre-Workout - Cotton Candy Delight" data-gallery="pre2">
+        <div class="media">
+          <div class="cs-box" aria-label="Coming Soon">COMING SOON</div>
+        </div>
+        <h3 class="title">Pre-Workout — Cotton Candy Delight</h3>
+        <div class="price">$<span data-price></span></div>
+        <div class="controls">
+          <div class="row">
+            <select class="size" aria-label="Choose serving size" data-price-map='{"30 Serv":}'>
+              <option value="30 Serv" selected>30 Servings</option>
+            </select>
+            <input class="qty" type="number" min="1" step="1" value="1" aria-label="Quantity">
+          </div>
+          <div class="add">
+            <button class="btn" disabled>Coming Soon</button>
+          </div>
+          <a class="notify" href="mailto:info@goonpowersupplements.com?subject=Notify%20me%20at%20launch%3A%20Pre-Workout%20%E2%80%94%20Cotton%20Candy%20Delight&body=Please%20notify%20me%20when%20this%20product%20launches.%20Thanks!">Notify me at launch</a>
+          <div class="toast" aria-live="polite"></div>
+        </div>
+      </article>
+
+      <!-- Recovery and Whey Protein — Coming Soon -->
+      <article class="product coming" data-name="GOON Power Recovery and Whey Protein - Vanilla Bean" data-gallery="whey">
+        <div class="media">
+          <div class="cs-box" aria-label="Coming Soon">COMING SOON</div>
+        </div>
+        <h3 class="title">Recovery and Whey Protein — Vanilla Bean</h3>
+        <div class="price">$<span data-price></span></div>
+        <div class="controls">
+          <div class="row">
+            <select class="size" aria-label="Choose tub size" data-price-map='{"2 lb":}'>
+              <option value="2 lb" selected>2 lb Tub</option>
+            </select>
+            <input class="qty" type="number" min="1" step="1" value="1" aria-label="Quantity">
+          </div>
+          <div class="add">
+            <button class="btn" disabled>Coming Soon</button>
+          </div>
+          <a class="notify" href="mailto:info@goonpowersupplements.com?subject=Notify%20me%20at%20launch%3A%20Recovery%20and%20Whey%20Protein%20%E2%80%94%20Vanilla%20Bean&body=Please%20notify%20me%20when%20this%20product%20launches.%20Thanks!">Notify me at launch</a>
+          <div class="toast" aria-live="polite"></div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div id="zoomOverlay" role="dialog" aria-modal="true" aria-label="Zoomed image">
+    <img src="" alt="Zoomed product image">
+  </div>
+
+  <footer>
+    <p>&copy; 2025 GFPS, LLC | Veteran-Owned | Warren, OH</p>
+  </footer>
+
+  <script>
+    // Utilities
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // Cart badge
+    function updateCartBadge(){
+      const flat = JSON.parse(localStorage.getItem('goonCart')||'[]');
+      const badge = $('#cartBadge'); if(badge){ badge.textContent = flat.length; badge.classList.add('bounce'); setTimeout(()=>badge.classList.remove('bounce'),400); }
+    }
+    updateCartBadge();
+
+    // Gallery switching (event delegation)
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t.matches('.thumb')){
+        const target = t.getAttribute('data-gallery-target');
+        const src = t.getAttribute('data-src');
+        const main = document.querySelector(`img[data-gallery-main="${target}"]`);
+        if(main){ main.src = src; }
+      }
+    });
+
+    // Zoom overlay (only for products with real images)
+    const overlay = document.getElementById('zoomOverlay');
+    const overlayImg = overlay.querySelector('img');
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t.matches('.main-image')){
+        overlayImg.src = t.src; overlay.style.display = 'flex';
+      } else if(t===overlay){ overlay.style.display = 'none'; }
+    });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ overlay.style.display='none'; }});
+
+    // Price binding and Add to Cart handlers (active only where buttons are enabled)
+    $$('.product').forEach(card=>{
+      const sizeSel = card.querySelector('.size');
+      const qtyInput = card.querySelector('.qty');
+      const priceEl = card.querySelector('[data-price]');
+      const addBtn = card.querySelector('.addBtn');
+      const toast = card.querySelector('.toast');
+
+      function computePrice(){
+        try{ const map = JSON.parse(sizeSel?.dataset.priceMap||'{}'); const sel = sizeSel?.value; return Number(map[sel]||0); }catch(e){ return 0; }
+      }
+
+      sizeSel?.addEventListener('change', ()=>{ const p = computePrice(); if(priceEl) priceEl.textContent = p.toFixed(2); });
+
+      if(addBtn){
+        addBtn.addEventListener('click', ()=>{
+          const size = sizeSel.value;
+          let qty = parseInt(qtyInput.value,10);
+          if(!size){ toast.textContent = 'Please choose a size.'; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 1400); return; }
+          if(isNaN(qty) || qty<1){ qty = 1; qtyInput.value = 1; }
+          const price = computePrice();
+          const name = card.dataset.name;
+          const cart = JSON.parse(localStorage.getItem('goonCart')||'[]');
+          for(let i=0;i<qty;i++){ cart.push({ name, size, price }); }
+          localStorage.setItem('goonCart', JSON.stringify(cart));
+          toast.textContent = `Added ${qty} to cart.`; toast.classList.add('show'); updateCartBadge();
+          setTimeout(()=>toast.classList.remove('show'), 1200);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

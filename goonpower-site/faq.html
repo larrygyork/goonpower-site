@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ | GOON Power</title>
+  <style>
+    :root{ --bg:#0B0B0B; --fg:#F5F5F5; --muted:#DDDDDD; --olive:#4B5320; --accent:#B22222; --accent-dark:#8B1A1A; --card:#1e1e1e; --border:#2d2d2d; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Arial Black',sans-serif;background:var(--bg);color:var(--fg)}
+
+    .compact-header{background:#0B0B0B;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--olive)}
+    .logo-nav{display:flex;align-items:center;gap:2rem;width:100%;justify-content:space-between}
+    .logo-nav img{height:60px}
+    nav{display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center}
+    nav a{color:#F5F5F5;font-weight:bold;text-decoration:none;font-size:1rem;transition:color .3s;position:relative}
+    nav a:hover{color:var(--accent)}
+    .badge{position:absolute;top:-10px;right:-12px;background:var(--accent);color:#fff;font-size:.72rem;font-weight:900;border-radius:999px;padding:.05rem .4rem;min-width:1.2rem;text-align:center}
+
+    .wrap{max-width:1000px;margin:0 auto;padding:2rem 1rem}
+    h1{color:var(--accent);margin:0 0 .75rem}
+    .sub{color:var(--muted);margin:0 0 1rem}
+
+    .tools{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+    .tools input[type="search"]{flex:1;min-width:260px;padding:.75rem;border-radius:10px;border:1px solid #3a3a3a;background:#121212;color:#fff}
+    .tools button{padding:.75rem 1rem;border-radius:10px;border:1px solid var(--border);background:#141414;color:#fff;font-weight:900;cursor:pointer}
+    .tools button:hover{filter:brightness(.95)}
+
+    .faq{display:grid;gap:.75rem}
+    details{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.5rem 1rem}
+    summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.6rem}
+    summary::-webkit-details-marker{display:none}
+    .q{font-size:1.05rem}
+    .pill{margin-left:auto;font-size:.8rem;color:#bbb}
+    .copy{margin-left:.5rem;font-size:.8rem;border:1px solid var(--border);background:#111;padding:.25rem .5rem;border-radius:8px;cursor:pointer}
+    .copy:hover{filter:brightness(1.1)}
+    .ans{color:#DDDDDD;line-height:1.6;padding:.5rem 0 1rem}
+
+    .nothing{display:none;color:#bbb;text-align:center;border:1px dashed #444;border-radius:12px;padding:1rem}
+
+    footer{margin-top:2rem;text-align:center;font-size:.9rem;color:#aaa;padding:1.5rem 1rem}
+  </style>
+
+  <!-- FAQ schema for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Are GOON Power supplements safe?","acceptedAnswer":{"@type":"Answer","text":"All GOON Power formulas are manufactured in GMP-certified facilities and third-party tested for quality and purity."}},
+      {"@type":"Question","name":"Do you ship internationally?","acceptedAnswer":{"@type":"Answer","text":"We currently ship within the United States. As we grow, we plan to expand international shipping."}},
+      {"@type":"Question","name":"Where are your products made?","acceptedAnswer":{"@type":"Answer","text":"All products are proudly manufactured in the USA."}},
+      {"@type":"Question","name":"Do you offer free shipping?","acceptedAnswer":{"@type":"Answer","text":"Orders $75 and over qualify for free shipping at checkout. Promotions such as FREESHIP may also apply when available."}},
+      {"@type":"Question","name":"What payment methods do you accept?","acceptedAnswer":{"@type":"Answer","text":"We accept major credit/debit cards, PayPal, Venmo, Apple Pay, and Google Pay."}},
+      {"@type":"Question","name":"Can I stack your products?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our supplements are designed to work together. Check product pages for guidance or contact us for stack recommendations."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="compact-header">
+    <div class="logo-nav">
+      <img src="images/gpssbannercompact.png" alt="GOON Power Logo">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="supps.html">Supplements</a>
+        <a href="apparel.html">Apparel</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart <span class="badge" id="cartBadge">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <h1>Frequently Asked Questions</h1>
+    <div class="sub">Quick answers to common questions about shipping, payments, safety, and using GOON Power.</div>
+
+    <div class="tools">
+      <input id="search" type="search" placeholder="Search questions… (try ‘shipping’, ‘payments’, ‘stack’)" />
+      <button id="expand">Expand all</button>
+      <button id="collapse">Collapse all</button>
+    </div>
+
+    <div id="none" class="nothing">No results match your search. Try a different keyword.</div>
+
+    <section id="faq" class="faq">
+      <details id="q-safe" data-tags="safety gmp testing quality">
+        <summary><span class="q">Are GOON Power supplements safe?</span><span class="pill">Safety</span><button class="copy" data-target="q-safe">Copy link</button></summary>
+        <div class="ans">Absolutely. All GOON Power formulas are manufactured in <strong>GMP-certified</strong> facilities and third-party tested for quality and purity.</div>
+      </details>
+
+      <details id="q-ship-intl" data-tags="shipping international usa delivery">
+        <summary><span class="q">Do you ship internationally?</span><span class="pill">Shipping</span><button class="copy" data-target="q-ship-intl">Copy link</button></summary>
+        <div class="ans">Currently we ship within the <strong>United States</strong>. We plan to expand as we grow.</div>
+      </details>
+
+      <details id="q-made" data-tags="manufactured usa where made">
+        <summary><span class="q">Where are your products made?</span><span class="pill">Quality</span><button class="copy" data-target="q-made">Copy link</button></summary>
+        <div class="ans">All of our products are proudly manufactured in the <strong>USA</strong>.</div>
+      </details>
+
+      <details id="q-ship-methods" data-tags="shipping free delivery timeline standard expedited">
+        <summary><span class="q">How long does shipping take? Do you offer free shipping?</span><span class="pill">Shipping</span><button class="copy" data-target="q-ship-methods">Copy link</button></summary>
+        <div class="ans">Standard delivery is typically <strong>3–5 business days</strong>; Expedited is <strong>2 business days</strong>. Orders of <strong>$75+</strong> qualify for <strong>free shipping</strong> at checkout (or use a valid promo like <code>FREESHIP</code> when offered).</div>
+      </details>
+
+      <details id="q-payments" data-tags="payment methods paypal venmo apple google card">
+        <summary><span class="q">What payment methods do you accept?</span><span class="pill">Payments</span><button class="copy" data-target="q-payments">Copy link</button></summary>
+        <div class="ans">We accept major credit/debit cards, <strong>PayPal</strong>, <strong>Venmo</strong>, <strong>Apple Pay</strong>, and <strong>Google Pay</strong>.</div>
+      </details>
+
+      <details id="q-promos" data-tags="promo discount code coupon deals">
+        <summary><span class="q">Do you have promo codes?</span><span class="pill">Promos</span><button class="copy" data-target="q-promos">Copy link</button></summary>
+        <div class="ans">When available, promo codes can be entered at checkout. Current examples include <code>BEAST10</code> (10% off), <code>VETERAN15</code> (15% off), and <code>FREESHIP</code> (free shipping). Offers may change and may not stack.</div>
+      </details>
+
+      <details id="q-stack" data-tags="stack combine use together">
+        <summary><span class="q">Can I stack your products?</span><span class="pill">Usage</span><button class="copy" data-target="q-stack">Copy link</button></summary>
+        <div class="ans">Yes. Our supplements are designed to work synergistically. Check each product page for recommended use or <a href="contact.html">contact us</a> for help tailoring a stack to your goals.</div>
+      </details>
+
+      <details id="q-support" data-tags="support help contact email order">
+        <summary><span class="q">How do I contact support?</span><span class="pill">Support</span><button class="copy" data-target="q-support">Copy link</button></summary>
+        <div class="ans">Email us at <a href="mailto:info@goonpowersupplements.com">info@goonpowersupplements.com</a>. Include your order ID if you have one (e.g., <code>GP-ABC123</code>) for faster help.</div>
+      </details>
+    </section>
+  </div>
+
+  <footer>&copy; 2025 GFPS, LLC | Veteran-Owned | Warren, OH</footer>
+
+  <script>
+    // Cart badge
+    (function(){
+      const badge = document.getElementById('cartBadge');
+      const items = JSON.parse(localStorage.getItem('goonCart')||'[]');
+      if(badge) badge.textContent = items.length;
+      window.addEventListener('storage', ()=>{
+        const items = JSON.parse(localStorage.getItem('goonCart')||'[]');
+        if(badge) badge.textContent = items.length;
+      });
+    })();
+
+    // FAQ controls
+    const $ = (sel, root=document)=>root.querySelector(sel);
+    const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
+    const list = $('#faq');
+    const search = $('#search');
+    const none = $('#none');
+
+    function filter(){
+      const q = (search.value||'').toLowerCase().trim();
+      let visible = 0;
+      $$('#faq details').forEach(d=>{
+        const text = (d.textContent||'').toLowerCase();
+        const tags = (d.getAttribute('data-tags')||'').toLowerCase();
+        const show = !q || text.includes(q) || tags.includes(q);
+        d.style.display = show ? '' : 'none';
+        if(show) visible++;
+      });
+      none.style.display = visible? 'none' : 'block';
+    }
+    search.addEventListener('input', filter);
+
+    $('#expand').addEventListener('click', ()=> $$('#faq details').forEach(d=> d.open = true));
+    $('#collapse').addEventListener('click', ()=> $$('#faq details').forEach(d=> d.open = false));
+
+    // Copy deep link
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t.matches('.copy')){
+        const id = t.getAttribute('data-target');
+        const url = `${location.origin}${location.pathname}#${id}`;
+        navigator.clipboard.writeText(url).then(()=>{
+          t.textContent = 'Copied!';
+          setTimeout(()=> t.textContent = 'Copy link', 900);
+        });
+      }
+    });
+
+    // Open from hash if present
+    window.addEventListener('DOMContentLoaded', ()=>{
+      if(location.hash){
+        const d = document.getElementById(location.hash.slice(1));
+        if(d && d.tagName==='DETAILS'){ d.open = true; d.scrollIntoView({behavior:'smooth', block:'start'}); }
+      }
+    });
+  </script>
+</body>
+</html>

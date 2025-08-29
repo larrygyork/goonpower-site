@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | GOON Power</title>
+  <style>
+    :root{ --bg:#0B0B0B; --fg:#F5F5F5; --muted:#DDDDDD; --olive:#4B5320; --accent:#B22222; --accent-dark:#8B1A1A; --card:#1e1e1e; --border:#2d2d2d; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Arial Black',sans-serif;background:var(--bg);color:var(--fg)}
+
+    /* Header */
+    .compact-header{background:#0B0B0B;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--olive)}
+    .logo-nav{display:flex;align-items:center;gap:2rem;width:100%;justify-content:space-between}
+    .logo-nav img{height:60px}
+    nav{display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center}
+    nav a{color:#F5F5F5;font-weight:bold;text-decoration:none;font-size:1rem;transition:color .3s;position:relative}
+    nav a:hover{color:var(--accent)}
+    .badge{position:absolute;top:-10px;right:-12px;background:var(--accent);color:#fff;font-size:.72rem;font-weight:900;border-radius:999px;padding:.05rem .4rem;min-width:1.2rem;text-align:center}
+
+    /* Page */
+    .wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+    h1{color:var(--accent);margin:0 0 .5rem}
+    .sub{color:var(--muted);margin:0 0 1.25rem}
+
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem}
+    .card h2{font-size:1.1rem;margin:.25rem 0 .75rem;color:#fff}
+    p{color:#DDDDDD;line-height:1.65}
+    ul{margin:.25rem 0 .75rem 1.1rem}
+    li{margin:.25rem 0}
+
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:.75rem}
+    .stat{background:#141414;border:1px solid var(--border);border-radius:12px;padding:.9rem;text-align:center}
+    .stat b{display:block;font-size:1.25rem;color:#fff}
+    .muted{color:#aaa}
+
+    .pair{display:grid;grid-template-columns:120px 1fr;gap:.35rem .75rem}
+    .pair div{padding:.15rem 0}
+
+    footer{margin-top:2rem;text-align:center;font-size:.9rem;color:#aaa;padding:1.5rem 1rem}
+
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
+
+  <!-- Organization structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "GFPS, LLC",
+    "brand": {"@type":"Brand","name":"GOON Power"},
+    "email": "info@goonpowersupplements.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1155 Surrey Pointe Drive",
+      "addressLocality": "Warren",
+      "addressRegion": "OH",
+      "postalCode": "44484",
+      "addressCountry": "US"
+    },
+    "contactPoint": [
+      {"@type": "ContactPoint", "telephone": "+1-234-430-5755", "contactType": "customer service", "name": "Larry York", "areaServed": "US"},
+      {"@type": "ContactPoint", "telephone": "+1-724-290-6923", "contactType": "customer service", "name": "Chad Kuzar", "areaServed": "US"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="compact-header">
+    <div class="logo-nav">
+      <img src="images/gpssbannercompact.png" alt="GOON Power Logo">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="supps.html">Supplements</a>
+        <a href="apparel.html">Apparel</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart <span class="badge" id="cartBadge">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <h1>About GOON Power</h1>
+    <div class="sub">Veteran-owned. Discipline-built. Formulas that move the needle—no fluff.</div>
+
+    <div class="grid">
+      <!-- Main narrative -->
+      <section class="card">
+        <h2>Our Mission</h2>
+        <p>GOON Power exists to fuel athletes and everyday grinders with <strong>straightforward, high-output formulas</strong>. We focus on effective dosing, clean labels, and consistent quality—so you can focus on work in the gym and results in the mirror.</p>
+
+        <h2>Veteran-Owned Roots</h2>
+        <p>Founded by U.S. veterans, GFPS, LLC operates with the same principles we learned in service: <strong>discipline, accountability, and respect for the team</strong>. That mindset shows up in how we build products and support our customers.</p>
+
+        <h2>What We Stand For</h2>
+        <ul>
+          <li><strong>Quality first</strong> — Made in the USA in <em>GMP-certified</em> facilities with third‑party testing.</li>
+          <li><strong>Transparent labels</strong> — Real ingredient dosages; no proprietary smoke screens.</li>
+          <li><strong>Real-world results</strong> — Formulas tuned for strength, endurance, and recovery.</li>
+        </ul>
+
+        <div class="stats">
+          <div class="stat"><b>USA</b><span class="muted">Manufactured</span></div>
+          <div class="stat"><b>GMP</b><span class="muted">Facility</span></div>
+          <div class="stat"><b>VETERAN</b><span class="muted">Owned</span></div>
+        </div>
+      </section>
+
+      <!-- Company & founders -->
+      <aside class="card">
+        <h2>Company</h2>
+        <div class="pair">
+          <div class="muted">Name</div><div>GFPS, LLC</div>
+          <div class="muted">Brand</div><div>GOON Power</div>
+          <div class="muted">Address</div><div>1155 Surrey Pointe Drive<br>Warren, OH 44484</div>
+          <div class="muted">Email</div><div><a style="color:#fff;text-decoration:underline" href="mailto:info@goonpowersupplements.com">info@goonpowersupplements.com</a></div>
+        </div>
+
+        <h2 style="margin-top:1rem">Founders</h2>
+        <div class="pair">
+          <div class="muted">Co-President</div><div><strong>Larry York</strong> — <a style="color:#fff;text-decoration:underline" href="tel:12344305755">234.430.5755</a></div>
+          <div class="muted">Co-President</div><div><strong>Chad Kuzar</strong> — <a style="color:#fff;text-decoration:underline" href="tel:17242906923">724.290.6923</a></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 GFPS, LLC | Veteran-Owned | Warren, OH</footer>
+
+  <script>
+    // Cart badge
+    (function(){
+      const badge = document.getElementById('cartBadge');
+      function sync(){ const items = JSON.parse(localStorage.getItem('goonCart')||'[]'); if(badge) badge.textContent = items.length; }
+      sync(); window.addEventListener('storage', sync);
+    })();
+  </script>
+</body>
+</html>

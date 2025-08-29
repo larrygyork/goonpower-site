@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart | GOON Power</title>
+  <style>
+    :root{ --bg:#0B0B0B; --fg:#F5F5F5; --muted:#DDDDDD; --olive:#4B5320; --accent:#B22222; --accent-dark:#8B1A1A; --card:#1e1e1e; --border:#2d2d2d; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Arial Black',sans-serif;background:var(--bg);color:var(--fg)}
+    .compact-header{background:#0B0B0B;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--olive)}
+    .logo-nav{display:flex;align-items:center;gap:2rem;width:100%;justify-content:space-between}
+    .logo-nav img{height:60px}
+    nav{display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center}
+    nav a{color:#F5F5F5;font-weight:bold;text-decoration:none;font-size:1rem;transition:color .3s;position:relative}
+    nav a:hover{color:var(--accent)}
+    .badge{position:absolute;top:-10px;right:-12px;background:var(--accent);color:#fff;font-size:.72rem;font-weight:900;border-radius:999px;padding:.05rem .4rem;min-width:1.2rem;text-align:center}
+
+    .wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+    h1{margin:0 0 .5rem;color:var(--accent)}
+    .sub{color:var(--muted);margin:0 0 1.25rem}
+
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem}
+
+    .empty{border:1px dashed #444;border-radius:12px;padding:1.25rem;text-align:center}
+
+    table{width:100%;border-collapse:collapse}
+    thead th{font-weight:900;text-align:left;color:#fff;border-bottom:1px solid #333;padding:.75rem .5rem}
+    tbody td{border-bottom:1px dashed #333;padding:.6rem .5rem;vertical-align:middle}
+    .right{text-align:right}
+    .qtywrap{display:inline-flex;align-items:center;gap:.35rem}
+    .qtybtn{width:28px;height:28px;border:1px solid var(--border);background:#141414;color:#fff;border-radius:6px;cursor:pointer;font-weight:900}
+    .qty{width:58px;padding:.35rem .4rem;border:1px solid #3a3a3a;background:#121212;color:#fff;border-radius:6px;text-align:center}
+    .remove{padding:.45rem .7rem;border-radius:8px;border:1px solid var(--border);background:#141414;color:#fff;cursor:pointer}
+    .remove:hover{filter:brightness(.95)}
+
+    .totals{display:grid;gap:.35rem;margin-top:1rem}
+    .totals div{display:flex;justify-content:space-between}
+    .grand{color:var(--accent);font-size:1.15rem;border-top:1px solid #333;padding-top:.5rem;margin-top:.25rem}
+
+    .actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.9rem 1.25rem;border-radius:10px;border:1px solid var(--border);background:#141414;color:#fff;font-weight:900;text-decoration:none;cursor:pointer}
+    .btn.primary{background:var(--accent);border-color:transparent}
+    .btn.primary:hover{background:var(--accent-dark)}
+    .btn.ghost{border-color:var(--olive)}
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+
+    footer{margin-top:2rem;text-align:center;font-size:.9rem;color:#aaa;padding:1.5rem 1rem}
+
+    @media (max-width:720px){
+      thead{display:none}
+      table, tbody, tr, td{display:block;width:100%}
+      tbody td{border-bottom:none;padding:.4rem 0}
+      .rowcard{border-bottom:1px dashed #333;padding:.6rem 0;margin-bottom:.6rem}
+      .right{ text-align:left }
+    }
+  </style>
+</head>
+<body>
+  <header class="compact-header">
+    <div class="logo-nav">
+      <img src="images/gpssbannercompact.png" alt="GOON Power Logo">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="supps.html">Supplements</a>
+        <a href="apparel.html">Apparel</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart <span class="badge" id="cartBadge">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <h1>Your Cart</h1>
+    <div class="sub">Review your items, adjust quantities, or remove what you don’t need. Totals update automatically.</div>
+
+    <div id="empty" class="empty" style="display:none">
+      <p>Your cart is empty.</p>
+      <div class="actions" style="justify-content:center">
+        <a class="btn primary" href="supps.html">Shop Supplements</a>
+        <a class="btn ghost" href="index.html">Back to Home</a>
+      </div>
+    </div>
+
+    <div id="cartBox" class="card" style="display:none">
+      <div class="tablewrap">
+        <table id="cartTable" aria-label="Shopping cart items">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Size</th>
+              <th class="right">Unit</th>
+              <th class="right">Qty</th>
+              <th class="right">Line Total</th>
+              <th class="right">Action</th>
+            </tr>
+          </thead>
+          <tbody id="cartBody"></tbody>
+        </table>
+      </div>
+
+      <div class="totals">
+        <div><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
+        <div class="grand"><span>Total (pre-tax & shipping)</span><strong id="grand">$0.00</strong></div>
+      </div>
+
+      <div class="actions">
+        <a class="btn ghost" href="supps.html">Continue Shopping</a>
+        <a class="btn primary" id="checkout" href="checkout.html">Proceed to Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 GFPS, LLC | Veteran-Owned | Warren, OH</footer>
+
+  <script>
+    // Helpers
+    const fmt = n => `$${Number(n||0).toFixed(2)}`;
+    const cartBadge = document.getElementById('cartBadge');
+    const cartBody = document.getElementById('cartBody');
+    const cartBox = document.getElementById('cartBox');
+    const emptyBox = document.getElementById('empty');
+    const subtotalEl = document.getElementById('subtotal');
+    const grandEl = document.getElementById('grand');
+
+    // Read flat array from localStorage
+    function readCartFlat(){
+      return JSON.parse(localStorage.getItem('goonCart')||'[]');
+    }
+
+    // Group into line items by name+size+price
+    function groupCart(flat){
+      const map = new Map();
+      flat.forEach((it)=>{
+        const key = JSON.stringify({n:it.name||'', s:it.size||'', p:Number(it.price||0)});
+        const row = map.get(key) || { name: it.name||'', size: it.size||'', price: Number(it.price||0), qty: 0 };
+        row.qty += 1;
+        map.set(key, row);
+      });
+      return Array.from(map.values());
+    }
+
+    // Expand grouped rows back to flat array for storage (keeps checkout compatible)
+    function expandToFlat(rows){
+      const flat = [];
+      rows.forEach(r=>{ for(let i=0;i<r.qty;i++){ flat.push({ name:r.name, size:r.size, price:r.price }); } });
+      return flat;
+    }
+
+    function updateBadge(count){ if(cartBadge) cartBadge.textContent = count; }
+
+    function render(){
+      const flat = readCartFlat();
+      updateBadge(flat.length);
+      if(!flat.length){ cartBox.style.display='none'; emptyBox.style.display='block'; return; }
+      emptyBox.style.display='none'; cartBox.style.display='block';
+
+      const rows = groupCart(flat);
+      cartBody.innerHTML = '';
+      let subtotal = 0;
+      rows.forEach((row, idx)=>{
+        const lineTotal = row.price * row.qty; subtotal += lineTotal;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${row.name}</strong></td>
+          <td>${row.size||''}</td>
+          <td class="right">${fmt(row.price)}</td>
+          <td class="right">
+            <div class="qtywrap">
+              <button class="qtybtn" data-act="minus" data-idx="${idx}">−</button>
+              <input class="qty" type="number" min="1" step="1" value="${row.qty}" data-idx="${idx}" />
+              <button class="qtybtn" data-act="plus" data-idx="${idx}">+</button>
+            </div>
+          </td>
+          <td class="right">${fmt(lineTotal)}</td>
+          <td class="right"><button class="remove" data-act="remove" data-idx="${idx}">Remove</button></td>
+        `;
+        cartBody.appendChild(tr);
+      });
+      subtotalEl.textContent = fmt(subtotal);
+      grandEl.textContent = fmt(subtotal);
+
+      // Attach one event listener for all buttons/inputs (event delegation)
+      cartBody.onclick = (e)=>{
+        const t = e.target; if(!t.dataset) return;
+        const act = t.dataset.act; const idx = Number(t.dataset.idx);
+        if(act==='plus' || act==='minus' || act==='remove'){
+          const currentRows = groupCart(readCartFlat());
+          if(act==='remove'){
+            currentRows.splice(idx,1);
+          } else if(act==='plus'){
+            currentRows[idx].qty += 1;
+          } else if(act==='minus'){
+            currentRows[idx].qty -= 1; if(currentRows[idx].qty < 1){ currentRows.splice(idx,1); }
+          }
+          localStorage.setItem('goonCart', JSON.stringify(expandToFlat(currentRows)));
+          render();
+        }
+      };
+
+      cartBody.oninput = (e)=>{
+        const t = e.target; if(!(t.classList && t.classList.contains('qty'))) return;
+        const idx = Number(t.dataset.idx); let q = parseInt(t.value, 10);
+        if(isNaN(q) || q < 1) q = 1; if(q>999) q=999; t.value = q;
+        const currentRows = groupCart(readCartFlat());
+        currentRows[idx].qty = q;
+        localStorage.setItem('goonCart', JSON.stringify(expandToFlat(currentRows)));
+        render();
+      };
+    }
+
+    render();
+
+  </script>
+</body>
+</html>
+

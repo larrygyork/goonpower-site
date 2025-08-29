@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apparel | GOON Power</title>
+  <style>
+    :root{ --bg:#0B0B0B; --fg:#F5F5F5; --muted:#DDDDDD; --olive:#4B5320; --accent:#B22222; --accent-dark:#8B1A1A; --card:#1e1e1e; --border:#2d2d2d; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Arial Black',sans-serif;background:var(--bg);color:var(--fg)}
+
+    /* Header */
+    .compact-header{background:#0B0B0B;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--olive)}
+    .logo-nav{display:flex;align-items:center;gap:2rem;width:100%;justify-content:space-between}
+    .logo-nav img{height:60px}
+    nav{display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center}
+    nav a{color:#F5F5F5;font-weight:bold;text-decoration:none;font-size:1rem;transition:color .3s;position:relative}
+    nav a:hover{color:var(--accent)}
+    .badge{position:absolute;top:-10px;right:-12px;background:var(--accent);color:#fff;font-size:.72rem;font-weight:900;border-radius:999px;padding:.05rem .4rem;min-width:1.2rem;text-align:center}
+    .badge.bounce{animation:bounce .5s}
+    @keyframes bounce{0%{transform:scale(1)}50%{transform:scale(1.25)}100%{transform:scale(1)}}
+
+    /* Launch banner */
+    .launch-banner{background:#141414;border:2px dashed #B22222;color:#F5F5F5;text-align:center;padding:.9rem 1rem;margin:0}
+    .launch-banner b{color:#B22222}
+
+    /* Page */
+    .wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+    h1{margin:0 0 .5rem;color:var(--accent)}
+    .sub{color:var(--muted);margin:0 0 1.25rem}
+
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    .product{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;display:flex;flex-direction:column}
+    .title{font-size:1.1rem;margin:.25rem 0 .5rem;color:#fff}
+
+    .media{display:flex;flex-direction:column;align-items:center}
+    .main-image{width:300px;max-width:100%;border:2px solid #555;border-radius:8px;margin-bottom:.6rem;cursor:zoom-in;transition:transform .2s}
+    .main-image:hover{transform:scale(1.02)}
+    .thumbs{display:flex;gap:.5rem;justify-content:center}
+    .thumb{width:88px;height:auto;border:1px solid #333;border-radius:6px;cursor:pointer;transition:filter .2s}
+    .thumb:hover{filter:brightness(1.1)}
+
+    .price{font-size:1.25rem;color:var(--accent);margin:.5rem 0}
+
+    .controls{display:grid;gap:.5rem}
+    .row{display:flex;gap:.5rem;flex-wrap:wrap}
+    select,input[type=number]{flex:1;padding:.6rem;border-radius:8px;border:1px solid #3a3a3a;background:#121212;color:#fff}
+    .qty{max-width:120px}
+
+    .btn{padding:.85rem 1rem;border:none;border-radius:10px;background:var(--accent);color:#fff;font-weight:900;cursor:pointer}
+    .btn:hover{background:var(--accent-dark)}
+
+    .toast{margin-top:.4rem;color:#8fd18f;font-size:.9rem;display:none}
+    .toast.show{display:block}
+
+    /* Disabled + notify for prelaunch */
+    .btn[disabled]{background:#444;cursor:not-allowed}
+    .notify{display:inline-block;margin-top:.35rem;color:#bbb;text-decoration:underline;font-size:.9rem}
+    .notify:hover{color:#fff}
+
+    footer{margin-top:2rem;text-align:center;font-size:.9rem;color:#aaa;padding:1.5rem 1rem}
+
+    /* Zoom overlay */
+    #zoomOverlay{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9999}
+    #zoomOverlay img{max-width:92vw;max-height:92vh;border:2px solid #444;border-radius:10px}
+  </style>
+</head>
+<body>
+  <header class="compact-header">
+    <div class="logo-nav">
+      <img src="images/gpssbannercompact.png" alt="GOON Power Logo">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="supps.html">Supplements</a>
+        <a href="apparel.html">Apparel</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart <span class="badge" id="cartBadge">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Launch announcement bar -->
+  <div class="launch-banner" role="status" aria-live="polite">🚀 <b>GOON Power Supplements will launch in late September 2025!</b> Please keep checking back for updates.</div>
+
+  <div class="wrap">
+    <h1>GOON Apparel</h1>
+    <div class="sub">Tees built for iron therapy. We launch in late September 2025 — snag your size alerts below.</div>
+
+    <section class="grid" id="products">
+      <!-- Black Savage Tee -->
+      <article class="product" data-name="Black Savage Tee" data-gallery="black">
+        <div class="media">
+          <img class="main-image" data-gallery-main="black" src="images/gpfrontblackss.jpg" alt="Black Savage Tee — front">
+          <div class="thumbs">
+            <img class="thumb" data-gallery-target="black" data-src="images/gpfrontblackss.jpg" src="images/gpfrontblackss.jpg" alt="Front">
+            <img class="thumb" data-gallery-target="black" data-src="images/gpbackblackss.jpg" src="images/gpbackblackss.jpg" alt="Back">
+          </div>
+        </div>
+        <h3 class="title">Black Savage Tee</h3>
+        <div class="price">$<span data-price></span></div>
+        <div class="controls">
+          <div class="row">
+            <select class="size" aria-label="Choose size">
+              <option value="" disabled selected>Select Size</option>
+              <option>Small</option>
+              <option>Medium</option>
+              <option>Large</option>
+              <option>X-Large</option>
+              <option>2XL</option>
+            </select>
+            <input class="qty" type="number" min="1" step="1" value="1" aria-label="Quantity">
+          </div>
+          <button class="btn addBtn" disabled>Coming Soon</button>
+          <a class="notify" href="mailto:info@goonpowersupplements.com?subject=Notify%20me%20at%20launch%3A%20Black%20Savage%20Tee&body=Please%20notify%20me%20when%20GOON%20Power%20launches%20in%20late%20September%202025.%20Thanks!">Notify me at launch</a>
+          <div class="toast" aria-live="polite"></div>
+        </div>
+      </article>
+
+      <!-- OD Green Discipline Tee -->
+      <article class="product" data-name="OD Green Discipline Tee" data-gallery="green">
+        <div class="media">
+          <img class="main-image" data-gallery-main="green" src="images/gpfrontgreenss.jpg" alt="OD Green Discipline Tee — front">
+          <div class="thumbs">
+            <img class="thumb" data-gallery-target="green" data-src="images/gpfrontgreenss.jpg" src="images/gpfrontgreenss.jpg" alt="Front">
+            <img class="thumb" data-gallery-target="green" data-src="images/gpbackgreenss.jpg" src="images/gpbackgreenss.jpg" alt="Back">
+          </div>
+        </div>
+        <h3 class="title">OD Green Discipline Tee</h3>
+        <div class="price">$<span data-price></span></div>
+        <div class="controls">
+          <div class="row">
+            <select class="size" aria-label="Choose size">
+              <option value="" disabled selected>Select Size</option>
+              <option>Small</option>
+              <option>Medium</option>
+              <option>Large</option>
+              <option>X-Large</option>
+              <option>2XL</option>
+            </select>
+            <input class="qty" type="number" min="1" step="1" value="1" aria-label="Quantity">
+          </div>
+          <button class="btn addBtn" disabled>Coming Soon</button>
+          <a class="notify" href="mailto:info@goonpowersupplements.com?subject=Notify%20me%20at%20launch%3A%20OD%20Green%20Discipline%20Tee&body=Please%20notify%20me%20when%20GOON%20Power%20launches%20in%20late%20September%202025.%20Thanks!">Notify me at launch</a>
+          <div class="toast" aria-live="polite"></div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <!-- Zoom overlay -->
+  <div id="zoomOverlay" role="dialog" aria-modal="true" aria-label="Zoomed apparel image">
+    <img src="" alt="Zoomed apparel image">
+  </div>
+
+  <footer>
+    <p>&copy; 2025 GFPS, LLC | Veteran-Owned | Warren, OH</p>
+  </footer>
+
+  <script>
+    // Utilities
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // Cart badge
+    function updateCartBadge(){
+      const flat = JSON.parse(localStorage.getItem('goonCart')||'[]');
+      const badge = $('#cartBadge'); if(badge){ badge.textContent = flat.length; badge.classList.add('bounce'); setTimeout(()=>badge.classList.remove('bounce'),400); }
+    }
+    updateCartBadge();
+    window.addEventListener('storage', updateCartBadge);
+
+    // Gallery switching
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t.matches('.thumb')){
+        const target = t.getAttribute('data-gallery-target');
+        const src = t.getAttribute('data-src');
+        const main = document.querySelector(`img[data-gallery-main="${target}"]`);
+        if(main){ main.src = src; }
+      }
+    });
+
+    // Zoom overlay
+    const overlay = document.getElementById('zoomOverlay');
+    const overlayImg = overlay.querySelector('img');
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t.matches('.main-image')){ overlayImg.src = t.src; overlay.style.display = 'flex'; }
+      else if(t===overlay){ overlay.style.display = 'none'; }
+    });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ overlay.style.display='none'; }});
+
+    // Add to cart (disabled buttons won't fire, listener is harmless if present)
+    $$('.product').forEach(card=>{
+      const sizeSel = $('.size', card);
+      const qtyInput = $('.qty', card);
+      const addBtn = $('.addBtn', card);
+      const toast = $('.toast', card);
+
+      if(addBtn){
+        addBtn.addEventListener('click', ()=>{
+          const size = sizeSel.value;
+          let qty = parseInt(qtyInput.value,10);
+          if(!size){ toast.textContent = 'Please select a size.'; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 1400); return; }
+          if(isNaN(qty) || qty<1){ qty = 1; qtyInput.value = 1; }
+          const name = card.dataset.name;
+          const price = ;
+          const cart = JSON.parse(localStorage.getItem('goonCart')||'[]');
+          for(let i=0;i<qty;i++){ cart.push({ name, size, price }); }
+          localStorage.setItem('goonCart', JSON.stringify(cart));
+          toast.textContent = `Added ${qty} to cart.`; toast.classList.add('show'); updateCartBadge();
+          setTimeout(()=>toast.classList.remove('show'), 1200);
+        });
+      }
+    });
+  </script>
+
+
+<!-- APPAREL WIRING: all shirts fixed at $21.99 -->
+<script>
+(function(){
+  const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
+  const setBadge = (n)=>{
+    const b = document.getElementById('cartBadge');
+    if(b){ b.textContent = n; b.classList.add('bounce'); setTimeout(()=>b.classList.remove('bounce'), 400); }
+  };
+  const loadCart = ()=>{ try{ return JSON.parse(localStorage.getItem('goonCart'))||[] }catch{ return [] } };
+  const saveCart = (c)=>{ localStorage.setItem('goonCart', JSON.stringify(c)); setBadge(c.length); };
+
+  const FIXED_PRICE = 21.99;
+
+  const cards = $$('.product');
+  cards.forEach((card)=>{
+    const name = card.dataset.name || (card.querySelector('.title')?.textContent?.trim()) || 'GOON Tee';
+    const sizeSel = card.querySelector('select.size') || card.querySelector('select[name=size]') || card.querySelector('select');
+    const qtyInput = card.querySelector('input.qty') || card.querySelector('input[type=number]');
+    const priceEl = card.querySelector('[data-price]');
+
+    // Force display of fixed price
+    if(priceEl){ priceEl.textContent = FIXED_PRICE.toFixed(2); }
+
+    let btn = card.querySelector('.add .btn') || card.querySelector('.btn.addBtn') || card.querySelector('.btn');
+    if(!btn) return;
+
+    btn.disabled = false;
+    btn.textContent = 'Add to Cart';
+
+    if(btn.dataset.wired) return;
+    btn.dataset.wired = '1';
+    btn.addEventListener('click', ()=>{
+      const size = sizeSel ? sizeSel.value : '';
+      let qty = parseInt(qtyInput && qtyInput.value || '1', 10);
+      if(isNaN(qty) || qty<1) qty = 1;
+
+      const cart = loadCart();
+      for(let i=0;i<qty;i++){
+        cart.push({ name, size, price: FIXED_PRICE });
+      }
+      saveCart(cart);
+
+      const toast = card.querySelector('.toast');
+      if(toast){
+        toast.textContent = `Added ${qty} to cart.`;
+        toast.classList.add('show');
+        setTimeout(()=>toast.classList.remove('show'), 1200);
+      }
+    });
+  });
+
+  setBadge(loadCart().length);
+})();
+</script>
+
+
+</body>
+</html>
